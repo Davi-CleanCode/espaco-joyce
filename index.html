@@ -66,29 +66,28 @@
   :focus-visible{ outline:2px solid var(--evergreen); outline-offset:3px; }
 
   /* ---------- Hero ---------- */
-  .hero{ min-height:var(--vh); display:grid; align-items:center; padding:28px 0 56px; position:relative; }
-  .hero .wrap{ display:grid; gap:22px; align-items:center; }
+  /* Foto da Joyce ocupa todo o hero; o fundo repete o tom escuro da foto */
+  .hero{
+    --photo-bg:#130f0e;
+    min-height:var(--vh); position:relative; isolation:isolate; overflow:hidden;
+    display:flex; align-items:flex-end; padding:max(42svh, 260px) 0 56px; background:var(--photo-bg);
+  }
+  .hero .wrap{ position:relative; z-index:2; }
   .brand{ display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
   .brand .mark{ font-family:var(--serif); font-size:1.25rem; font-style:italic; }
-  .hero-photo{
-    position:relative; width:100%; aspect-ratio:4/5;
-    border-radius:999px 999px 28px 28px; overflow:hidden;
-    will-change:transform; transform:translateZ(0);
+  .hero-bg{ position:absolute; inset:0; z-index:0; overflow:hidden; will-change:transform, clip-path; }
+  .hero-zoom{ position:absolute; inset:0; animation:heroIn 2.2s cubic-bezier(.2,.8,.2,1) both; }
+  @keyframes heroIn{ from{ transform:scale(1.18); opacity:0; } to{ transform:none; opacity:1; } }
+  .hero-bg img{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:56% 12%;
+    transform:scale(1.1); will-change:transform;
   }
-  .hero-media{ position:relative; width:min(100% - 28px, 420px, 36svh); margin:14px auto 0; }
-  .hero-photo img{
-    width:100%; height:100%; object-fit:cover; object-position:50% 30%;
-    transform:scale(1.12); will-change:transform;
+  .hero-bg::after{
+    content:""; position:absolute; inset:0; z-index:1;
+    background:linear-gradient(to top, var(--photo-bg) 4%, rgba(19,15,14,.88) 34%, rgba(19,15,14,.2) 62%, rgba(19,15,14,.3) 100%);
   }
-  .hero-photo::after{
-    content:""; position:absolute; inset:0; border-radius:inherit;
-    box-shadow:inset 0 0 0 1px rgba(217,228,215,.18);
-    background:linear-gradient(to top, rgba(43,67,54,.55), transparent 40%);
-  }
-  .ring{
-    position:absolute; inset:-14px; border:1px solid var(--matcha); border-radius:999px 999px 36px 36px;
-    opacity:.5; pointer-events:none;
-  }
+  .hero-veil{ position:absolute; inset:0; z-index:2; background:var(--ink); opacity:0; pointer-events:none; }
+  .hero .scroll-cue{ z-index:2; }
   .hero-text{ will-change:transform, opacity; }
   .hero h1{ font-size:clamp(3rem, 13vw, 6.4rem); margin:8px 0 10px; color:#fff; }
   @media (max-width:879px){ .hero-text{ text-align:center; } .hero p.sub{ margin-inline:auto; } .brand{ justify-content:center; } .links{ text-align:left; } .scroll-cue{ display:none; } }
@@ -102,8 +101,19 @@
   @keyframes cue{ 0%{transform:scaleY(0)} 50%{transform:scaleY(1)} 100%{transform:scaleY(1); opacity:0} }
 
   @media (min-width:880px){
-    .hero .wrap{ grid-template-columns:1.05fr .95fr; gap:72px; }
-    .hero-media{ order:2; width:min(100% - 28px, 420px); }
+    .hero{ align-items:center; padding:48px 0 64px; }
+    .hero-text{ max-width:520px; }
+    /* No desktop a foto fica à direita e se funde no fundo escuro à esquerda */
+    .hero-bg img{
+      left:auto; right:0; width:auto; max-width:none; aspect-ratio:4/5; object-position:50% 20%;
+      -webkit-mask-image:linear-gradient(to right, transparent 0, #000 32%);
+              mask-image:linear-gradient(to right, transparent 0, #000 32%);
+    }
+    .hero-bg::after{
+      background:
+        linear-gradient(to right, var(--photo-bg) 0%, rgba(19,15,14,.75) 38%, transparent 62%),
+        linear-gradient(to top, var(--photo-bg) 0%, transparent 28%);
+    }
     .links{ max-width:420px; }
   }
 
@@ -165,6 +175,45 @@
   @media (max-width:879px){
     .svc-foot .dots{ display:none; }
   }
+
+  /* ---------- Antes e depois (comparador arrastável) ---------- */
+  .ba{ padding:110px 0 20px; }
+  .ba .wrap{ display:grid; gap:40px; align-items:center; }
+  .ba h2{ font-size:clamp(2.6rem, 9vw, 4.4rem); color:#fff; margin:12px 0 18px; }
+  .ba h2 em{ color:var(--evergreen); }
+  .ba p{ color:var(--evergreen); max-width:40ch; }
+  .ba .btn{ margin-top:26px; width:fit-content; gap:28px; }
+  .ba-slider{
+    --pos:50%;
+    position:relative; width:min(100%, 480px); margin-inline:auto; aspect-ratio:4/5;
+    border-radius:24px; overflow:hidden; background:var(--calm);
+    box-shadow:0 40px 80px -40px rgba(0,0,0,.6), inset 0 0 0 1px rgba(217,228,215,.14);
+    cursor:ew-resize; touch-action:pan-y; user-select:none; -webkit-user-select:none; -webkit-tap-highlight-color:transparent;
+  }
+  .ba-slider img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; pointer-events:none; -webkit-user-drag:none; }
+  .ba-before{ position:absolute; inset:0; clip-path:inset(0 calc(100% - var(--pos)) 0 0); }
+  .ba-handle{
+    position:absolute; top:0; bottom:0; left:var(--pos); width:2px; translate:-1px 0;
+    background:var(--pistache); box-shadow:0 0 14px rgba(0,0,0,.35); pointer-events:none;
+  }
+  .ba-knob{
+    position:absolute; top:50%; left:50%; width:56px; height:56px; translate:-50% -50%;
+    border-radius:50%; display:grid; place-items:center;
+    background:var(--pistache); color:var(--resting); box-shadow:0 10px 30px -6px rgba(0,0,0,.5);
+    transition:scale .3s cubic-bezier(.2,.8,.2,1);
+  }
+  .ba-knob svg{ width:26px; height:26px; }
+  .ba-slider.drag .ba-knob, .ba-slider:hover .ba-knob{ scale:1.1; }
+  .ba-tag{
+    position:absolute; top:16px; z-index:1; padding:6px 14px; border-radius:999px; pointer-events:none;
+    font-size:.68rem; letter-spacing:.24em; text-transform:uppercase; font-weight:400; color:#fff;
+    background:rgba(30,48,39,.55); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
+    transition:opacity .3s;
+  }
+  .ba-tag--l{ left:16px; } .ba-tag--r{ right:16px; }
+  .ba .ba-hint{ max-width:none; display:flex; align-items:center; justify-content:center; gap:10px; margin-top:16px; font-size:.78rem; letter-spacing:.18em; text-transform:uppercase; color:var(--matcha); }
+  @media (max-width:879px){ .ba-text{ text-align:center; } .ba p{ margin-inline:auto; } .ba .btn{ margin-inline:auto; } }
+  @media (min-width:880px){ .ba .wrap{ grid-template-columns:1.1fr .9fr; gap:80px; } }
 
   /* ---------- Sobre ---------- */
   .about{ padding:110px 0 90px; }
@@ -247,14 +296,13 @@
 
 <!-- ============ HERO / LINK NA BIO ============ -->
 <header class="hero" id="topo">
-  <div class="wrap">
-    <div class="hero-media" data-reveal>
-      <span class="ring" aria-hidden="true"></span>
-      <figure class="hero-photo">
-        <img src="assets/web/joyce-1.webp" width="1000" height="1250" alt="Joyce, designer de sobrancelhas, segurando uma pinça dourada">
-      </figure>
+  <div class="hero-bg">
+    <div class="hero-zoom">
+      <img src="assets/web/joyce-1.webp" width="1000" height="1250" alt="Joyce, designer de sobrancelhas, segurando uma pinça dourada" fetchpriority="high">
     </div>
-
+    <div class="hero-veil" aria-hidden="true"></div>
+  </div>
+  <div class="wrap">
     <div class="hero-text">
       <div class="brand" data-reveal>
         <span class="eyebrow">Designer de sobrancelhas</span>
@@ -342,6 +390,30 @@
         <button type="button" data-go="1">Micro</button>
         <button type="button" data-go="2">Henna</button>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ANTES E DEPOIS ============ -->
+<section class="ba" id="resultados" aria-label="Antes e depois">
+  <div class="wrap">
+    <div class="ba-text">
+      <span class="eyebrow" data-reveal>Resultado real</span>
+      <h2 class="split" data-reveal>Antes <em>&amp; depois</em></h2>
+      <p data-reveal style="--i:2">Arraste a linha sobre a foto e veja a diferença. Mesmo rosto, mesmo ângulo: só o olhar que mudou.</p>
+      <a class="btn btn--main" data-reveal style="--i:3" href="https://wa.me/5511911078055?text=Ol%C3%A1%20Joyce!%20Vi%20o%20antes%20e%20depois%20e%20quero%20agendar." target="_blank" rel="noopener"><span class="lbl">Quero esse resultado</span><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div data-reveal style="--i:1">
+      <div class="ba-slider" role="slider" tabindex="0" aria-label="Comparar antes e depois" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-valuetext="50% antes">
+        <img src="assets/web/depois.webp" width="960" height="1200" alt="Depois: sobrancelhas desenhadas, alinhadas e preenchidas" loading="lazy" draggable="false">
+        <div class="ba-before"><img src="assets/web/antes.webp" width="960" height="1200" alt="Antes: sobrancelhas sem design" loading="lazy" draggable="false"></div>
+        <span class="ba-tag ba-tag--l">Antes</span>
+        <span class="ba-tag ba-tag--r">Depois</span>
+        <div class="ba-handle" aria-hidden="true">
+          <span class="ba-knob"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg></span>
+        </div>
+      </div>
+      <p class="ba-hint" aria-hidden="true">← arraste para comparar →</p>
     </div>
   </div>
 </section>
@@ -445,7 +517,7 @@
   });
 
   /* Elementos ligados ao scroll */
-  const heroPhoto = $('.hero-photo'), heroImg = $('.hero-photo img'), heroText = $('.hero-text'), cue = $('.scroll-cue');
+  const heroBg = $('.hero-bg'), heroImg = $('.hero-bg img'), heroVeil = $('.hero-veil'), heroText = $('.hero-text'), cue = $('.scroll-cue');
   const svc = $('.svc'), track = $('.svc-track'), slides = $$('.slide');
   const figs = slides.map(s => $('figure', s)), imgs = slides.map(s => $('figure img', s)), infos = slides.map(s => $('.info', s));
   const dirs = slides.map(s => +getComputedStyle(s).getPropertyValue('--dir') || 1);
@@ -487,12 +559,16 @@
 
     if (!reduce) {
       // hero
-      if (y < vh * 1.2) {
-        const hp = clamp(y / (vh * .9));
-        heroPhoto.style.transform = `translate3d(0,${hp * 40}px,0) scale(${1 - hp * .06})`;
-        heroImg.style.transform = `scale(${1.12 - hp * .08})`;
-        heroText.style.transform = `translate3d(0,${hp * -30}px,0)`;
-        heroText.style.opacity = 1 - hp * 1.1;
+      // hero: a foto desce mais devagar que a página (parallax), aproxima,
+      // e vai se recolhendo num quadro arredondado enquanto o texto sobe
+      if (y < vh * 1.4) {
+        const hp = clamp(y / (vh * .95)), e = ease(hp);
+        heroBg.style.transform = `translate3d(0,${hp * 38}%,0)`;
+        heroBg.style.clipPath = `inset(${e * 5}% ${e * 6}% 0% ${e * 6}% round ${e * 36}px)`;
+        heroImg.style.transform = `scale(${1.1 + hp * .12})`;
+        heroVeil.style.opacity = e * .55;
+        heroText.style.transform = `translate3d(0,${hp * -70}px,0)`;
+        heroText.style.opacity = 1 - hp * 1.25;
         cue.style.opacity = 1 - hp * 3;
       }
 
@@ -567,6 +643,68 @@
   dots.forEach(d => d.addEventListener('click', () => {
     goTo(M.svcTop + M.svcTotal * (+d.dataset.go / (slides.length - 1)));
   }));
+
+  /* Antes e depois: arrastar (mouse/toque), clicar ou usar as setas */
+  const ba = $('.ba-slider');
+  if (ba) {
+    const tagL = $('.ba-tag--l', ba), tagR = $('.ba-tag--r', ba);
+    let pos = 50, dragging = false, touched = false, startX = 0, startY = 0, intro = 0;
+    const setPos = v => {
+      pos = clamp(v, 0, 100);
+      ba.style.setProperty('--pos', pos + '%');
+      ba.setAttribute('aria-valuenow', Math.round(pos));
+      ba.setAttribute('aria-valuetext', Math.round(pos) + '% antes');
+      tagL.style.opacity = pos < 22 ? 0 : 1;
+      tagR.style.opacity = pos > 78 ? 0 : 1;
+    };
+    const fromX = x => { const r = ba.getBoundingClientRect(); return (x - r.left) / r.width * 100; };
+    const stopIntro = () => { touched = true; cancelAnimationFrame(intro); };
+
+    ba.addEventListener('pointerdown', e => {
+      stopIntro();
+      startX = e.clientX; startY = e.clientY;
+      // no mouse move na hora; no toque espera o gesto ser horizontal (deixa a rolagem vertical livre)
+      if (e.pointerType === 'mouse') { dragging = true; ba.setPointerCapture(e.pointerId); ba.classList.add('drag'); setPos(fromX(e.clientX)); }
+      else dragging = 'maybe';
+    });
+    ba.addEventListener('pointermove', e => {
+      if (dragging === 'maybe') {
+        const dx = Math.abs(e.clientX - startX), dy = Math.abs(e.clientY - startY);
+        if (dx > 6 && dx > dy) { dragging = true; ba.setPointerCapture(e.pointerId); ba.classList.add('drag'); }
+        else if (dy > 8) { dragging = false; }
+      }
+      if (dragging === true) setPos(fromX(e.clientX));
+    });
+    const end = e => {
+      if (dragging === 'maybe' && e.type === 'pointerup') setPos(fromX(e.clientX)); // toque rápido = posiciona
+      dragging = false; ba.classList.remove('drag');
+    };
+    ba.addEventListener('pointerup', end);
+    ba.addEventListener('pointercancel', end);
+    ba.addEventListener('keydown', e => {
+      const step = e.shiftKey ? 20 : 5;
+      const map = { ArrowLeft: pos - step, ArrowDown: pos - step, ArrowRight: pos + step, ArrowUp: pos + step, Home: 0, End: 100 };
+      if (e.key in map) { e.preventDefault(); stopIntro(); setPos(map[e.key]); }
+    });
+    setPos(50);
+
+    // dica de movimento: a linha "varre" a foto uma vez quando ela aparece
+    if (!reduce && 'IntersectionObserver' in window) {
+      const io = new IntersectionObserver(([en]) => {
+        if (!en.isIntersecting || touched) return;
+        io.disconnect();
+        const keys = [50, 80, 22, 50], dur = 2200, t0 = performance.now() + 500;
+        const run = now => {
+          if (touched) return;
+          const t = clamp((now - t0) / dur), seg = Math.min(Math.floor(t * 3), 2), f = ease(t * 3 - seg);
+          setPos(keys[seg] + (keys[seg + 1] - keys[seg]) * f);
+          if (t < 1) intro = requestAnimationFrame(run);
+        };
+        intro = requestAnimationFrame(run);
+      }, { threshold: .6 });
+      io.observe(ba);
+    }
+  }
 })();
 </script>
 </body>

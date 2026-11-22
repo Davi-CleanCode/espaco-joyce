@@ -1,5 +1,6 @@
 # Originais pesados (o site usa as versões otimizadas em assets/web)
 assets/*.png
 assets/*.jpg
+assets/antes e depois 1/
 !assets/web/
 .vercel
