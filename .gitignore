@@ -1,0 +1,5 @@
+# Originais pesados (o site usa as versões otimizadas em assets/web)
+assets/*.png
+assets/*.jpg
+!assets/web/
+.vercel
