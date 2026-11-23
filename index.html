@@ -292,7 +292,8 @@
   .about h2{ font-size:clamp(2.6rem, 9vw, 4.4rem); color:#fff; margin:12px 0 20px; }
   .about h2 em{ color:var(--evergreen); }
   .about p{ color:var(--evergreen); max-width:46ch; }
-  .about p.draft-note{ font-family:var(--serif); font-style:italic; font-size:1.1rem; color:var(--matcha); margin-bottom:10px; }
+  .about p.lead{ font-family:var(--serif); font-style:italic; font-size:1.3rem; color:var(--pistache); margin-bottom:12px; }
+  .about p + p:not(.lead){ margin-top:14px; }
   .studio p.addr{ margin-top:14px; font-size:.9rem; color:var(--pistache); letter-spacing:.02em; }
   .pills{ display:flex; flex-wrap:wrap; gap:8px; margin-top:26px; }
   .pills li{ list-style:none; padding:8px 16px; border-radius:999px; border:1px solid rgba(190,207,187,.35); font-size:.85rem; color:var(--pistache); transition:transform .2s, background .3s; }
@@ -635,9 +636,10 @@
     <div>
       <span class="eyebrow" data-reveal>Prazer, Joyce</span>
       <h2 class="split" data-reveal>Seu olhar, <em>no detalhe</em></h2>
-      <p class="draft-note" data-reveal style="--i:2">(Joy revise e escreva o seu)</p>
+      <p class="lead" data-reveal style="--i:2">Profissional formada e especializada</p>
       <p data-reveal style="--i:2">Cada sobrancelha é pensada a partir das proporções do seu rosto. Medição, escolha da técnica e acabamento feitos com calma, para um resultado que é a sua cara.</p>
-      <ul class="pills" data-reveal style="--i:3">
+      <p data-reveal style="--i:3">Antes de começar, eu converso com você sobre o que você espera e o que mais combina com o seu rosto. Do design à micropigmentação, o objetivo é sempre o mesmo: realçar o seu olhar com naturalidade, sem exageros, para você sair daqui confiante com o que vê no espelho.</p>
+      <ul class="pills" data-reveal style="--i:4">
         <li>Visagismo</li><li>Atendimento individual</li><li>Resultado natural</li>
       </ul>
     </div>
@@ -811,7 +813,7 @@
     "Espaço Joyce",
     "Joyce Duarte Design de Sobrancelhas"
    ],
-   "description": "Estúdio de design de sobrancelhas da designer Joyce Duarte em Itaquaquecetuba (SP). Cada sobrancelha é desenhada a partir das proporções do rosto, com atendimento individual em sala reservada. Agendamento pelo WhatsApp.",
+   "description": "Estúdio de design de sobrancelhas da designer Joyce Duarte, profissional formada e especializada, em Itaquaquecetuba (SP). Cada sobrancelha é desenhada a partir das proporções do rosto, com atendimento individual em sala reservada. Agendamento pelo WhatsApp.",
    "url": "https://espaco-joyce.vercel.app/",
    "image": [
     "https://espaco-joyce.vercel.app/assets/brand/og.jpg",
