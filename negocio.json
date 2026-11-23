@@ -1,0 +1,102 @@
+{
+  "_sobre": "Fonte única dos dados do Espaço Joy. Site, Google Meu Negócio, ChatGPT e agentes/automações devem ler daqui. Campos null ainda precisam ser preenchidos. Depois de editar, rode: python scripts/atualizar-dados.py",
+  "_atualizado_em": "2026-11-23",
+  "nome": "Espaço Joy",
+  "nomes_alternativos": [
+    "Espaço Joyce",
+    "Joyce Duarte Design de Sobrancelhas"
+  ],
+  "profissional": {
+    "nome": "Joyce Duarte",
+    "funcao": "Designer de sobrancelhas"
+  },
+  "categoria": "Design de sobrancelhas",
+  "descricao_curta": "Design de sobrancelhas, henna, brow lamination, micropigmentação e limpeza de pele em Itaquaquecetuba (SP).",
+  "descricao": "Estúdio de design de sobrancelhas da designer Joyce Duarte em Itaquaquecetuba (SP). Cada sobrancelha é desenhada a partir das proporções do rosto, com atendimento individual em sala reservada. Agendamento pelo WhatsApp.",
+  "contato": {
+    "whatsapp": "+5511911078055",
+    "whatsapp_link": "https://wa.me/5511911078055",
+    "telefone_exibicao": "(11) 91107-8055",
+    "instagram": "https://www.instagram.com/joyc3_d/",
+    "email": null
+  },
+  "endereco": {
+    "logradouro": "Rua Estados Unidos, 295",
+    "bairro": "Jardim Americano",
+    "cidade": "Itaquaquecetuba",
+    "estado": "SP",
+    "cep": "08598-770",
+    "pais": "BR",
+    "latitude": -23.4719,
+    "longitude": -46.3266,
+    "mapa": "https://www.google.com/maps/search/?api=1&query=R.%20Estados%20Unidos%2C%20295%20-%20Jardim%20Americano%2C%20Itaquaquecetuba%20-%20SP%2C%2008598-770"
+  },
+  "site": "https://espaco-joyce.vercel.app/",
+  "horarios": {
+    "_formato": "HH:MM-HH:MM; null = fechado ou ainda não informado",
+    "segunda": null,
+    "terca": null,
+    "quarta": null,
+    "quinta": null,
+    "sexta": null,
+    "sabado": null,
+    "domingo": null,
+    "somente_com_agendamento": true
+  },
+  "servicos": [
+    {
+      "id": "design",
+      "nome": "Design de Sobrancelhas Padrão",
+      "descricao": "Medição e desenho pensados para as proporções do rosto.",
+      "preco_brl": 40.0,
+      "duracao_min": 20,
+      "duracao_max": 30,
+      "manutencao": "Recomendada a cada 20 a 30 dias."
+    },
+    {
+      "id": "design-henna",
+      "nome": "Design com henna",
+      "descricao": "Cor e preenchimento sob medida, sem efeito carimbo.",
+      "preco_brl": null,
+      "duracao_min": null,
+      "duracao_max": null
+    },
+    {
+      "id": "brow-lamination",
+      "nome": "Brow Lamination",
+      "descricao": "Fios alinhados e com efeito volumoso, prontos todos os dias.",
+      "preco_brl": 130.0,
+      "duracao_min": 45,
+      "duracao_max": 60,
+      "duracao_efeito": "4 a 8 semanas."
+    },
+    {
+      "id": "micropigmentacao",
+      "nome": "Micropigmentação de Sobrancelhas",
+      "descricao": "Definição, simetria e naturalidade com resultado duradouro.",
+      "preco_brl": 450.0,
+      "duracao_min": 120,
+      "duracao_max": 180,
+      "duracao_efeito": "12 a 18 meses, dependendo da técnica, pele e cuidados."
+    },
+    {
+      "id": "limpeza-de-pele",
+      "nome": "Limpeza de Pele",
+      "descricao": "Limpeza para remover impurezas e deixar a pele renovada e com viço.",
+      "preco_brl": 30.0,
+      "duracao_min": 30,
+      "duracao_max": 30
+    }
+  ],
+  "formas_de_pagamento": null,
+  "politicas": {
+    "precos": "Os valores podem variar após a avaliação.",
+    "cancelamento": null,
+    "atraso": null,
+    "privacidade": "https://espaco-joyce.vercel.app/privacidade"
+  },
+  "agendamento": {
+    "canal": "whatsapp",
+    "mensagem_padrao": "Olá Joyce! Quero agendar {servico}."
+  }
+}

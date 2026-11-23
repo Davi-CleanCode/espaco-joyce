@@ -1,0 +1,36 @@
+# Buscadores e IAs são bem-vindos: queremos aparecer nas pesquisas e nas respostas.
+User-agent: *
+Allow: /
+
+# Buscas com IA (ChatGPT, Claude, Perplexity, Gemini, Apple)
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+Sitemap: https://espaco-joyce.vercel.app/sitemap.xml
