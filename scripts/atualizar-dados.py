@@ -31,6 +31,9 @@ def oferta(s):
     o = {'@type': 'Offer', 'itemOffered': servico}
     if s.get('preco_brl') is not None:
         o.update(price=f"{s['preco_brl']:.2f}", priceCurrency='BRL')
+    elif s.get('preco_min_brl') is not None:
+        o['priceSpecification'] = {'@type': 'PriceSpecification', 'priceCurrency': 'BRL',
+                                   'minPrice': f"{s['preco_min_brl']:.2f}", 'maxPrice': f"{s['preco_max_brl']:.2f}"}
     return o
 
 
@@ -57,7 +60,7 @@ negocio = {
                         'target': {'@type': 'EntryPoint', 'urlTemplate': neg['contato']['whatsapp_link'],
                                    'actionPlatform': ['https://schema.org/DesktopWebPlatform', 'https://schema.org/MobileWebPlatform']}},
 }
-precos = [s['preco_brl'] for s in neg['servicos'] if s.get('preco_brl') is not None]
+precos = [v for s in neg['servicos'] for v in (s.get('preco_brl'), s.get('preco_min_brl'), s.get('preco_max_brl')) if v is not None]
 if precos:
     negocio['priceRange'] = f"R$ {min(precos):.0f} - R$ {max(precos):.0f}"
 

@@ -46,7 +46,7 @@
   "servicos": [
     {
       "id": "design",
-      "nome": "Design de Sobrancelhas Padrão",
+      "nome": "Design de Sobrancelhas",
       "descricao": "Medição e desenho pensados para as proporções do rosto.",
       "preco_brl": 40.0,
       "duracao_min": 20,
@@ -55,11 +55,14 @@
     },
     {
       "id": "design-henna",
-      "nome": "Design com henna",
-      "descricao": "Cor e preenchimento sob medida, sem efeito carimbo.",
+      "nome": "Design com Henna",
+      "descricao": "Modelagem com aplicação de henna para preencher falhas e destacar o desenho.",
       "preco_brl": null,
-      "duracao_min": null,
-      "duracao_max": null
+      "duracao_min": 30,
+      "duracao_max": 45,
+      "preco_min_brl": 45.0,
+      "preco_max_brl": 65.0,
+      "duracao_efeito": "Até 7 dias na pele e até 3 semanas nos fios."
     },
     {
       "id": "brow-lamination",
@@ -81,7 +84,7 @@
     },
     {
       "id": "limpeza-de-pele",
-      "nome": "Limpeza de Pele",
+      "nome": "Limpeza de Pele Simples",
       "descricao": "Limpeza para remover impurezas e deixar a pele renovada e com viço.",
       "preco_brl": 30.0,
       "duracao_min": 30,
