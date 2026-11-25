@@ -54,11 +54,17 @@
 
   /* Elementos ligados ao scroll */
   const heroBg = $('.hero-bg'), heroImg = $('.hero-bg img'), heroVeil = $('.hero-veil'), heroText = $('.hero-text'), cue = $('.scroll-cue');
-  const svc = $('.svc'), track = $('.svc-track'), slides = $$('.slide');
+  const svc = $('.svc'), track = $('.svc-track'), slides = $$('.slide:not([hidden])'); // "hidden" = serviço oculto
   const figs = slides.map(s => $('figure', s)), imgs = slides.map(s => $('figure img', s)), infos = slides.map(s => $('.info', s));
   const dirs = slides.map(s => +getComputedStyle(s).getPropertyValue('--dir') || 1);
-  const barFill = $('.svc-bar i'), cur = $('.cur'), mobileName = $('.mobile-name'), dots = $$('.dots button');
-  const names = ['Brow Lamination', 'Micropigmentação', 'Henna'];
+  const barFill = $('.svc-bar i'), cur = $('.cur'), mobileName = $('.mobile-name'), dots = $$('.dots button:not([hidden])');
+  const names = slides.map(s => s.dataset.nome);
+  svc.style.setProperty('--n', slides.length);
+  svc.classList.toggle('solo', slides.length < 2);
+  $('.tot').textContent = String(slides.length).padStart(2, '0');
+  slides.forEach((s, i) => { $('.num', s).textContent = slides.length < 2 ? '' : String(i + 1).padStart(2, '0'); });
+  mobileName.textContent = names[0];
+  dots.forEach((d, i) => d.classList.toggle('on', i === 0));
   const aboutImg = $('.about-photo img'), about = $('.about-photo'), studio = $('.studio-card'), studioImg = $('.studio-card img');
   const cta = $('.cta'), fab = $('.fab'), progress = $('.progress i');
 
@@ -79,6 +85,7 @@
 
   // progresso horizontal com "pausa" em cada imagem
   const stepped = p => {
+    if (slides.length < 2) return 0;
     const n = slides.length - 1, raw = p * n, i = Math.min(Math.floor(raw), n - 1), f = raw - i;
     return i + ease(clamp((f - .18) / .64));
   };
@@ -121,10 +128,10 @@
       }
 
       // serviços (vertical -> horizontal)
-      const p = clamp((y - M.svcTop) / M.svcTotal);
+      const p = M.svcTotal > 0 ? clamp((y - M.svcTop) / M.svcTotal) : 0;
       if (y > M.svcTop - vh && y < M.svcTop + M.svcTotal + vh) {
         const x = stepped(p);
-        track.style.transform = `translate3d(${-x * 33.3333}%,0,0)`;
+        track.style.transform = `translate3d(${-x * 100 / slides.length}%,0,0)`;
         barFill.style.transform = `scaleX(${p})`;
         for (let i = 0; i < slides.length; i++) {
           const d = Math.min(Math.abs(x - i), 1);
@@ -174,7 +181,7 @@
   refresh();
 
   const goTo = top => lenis ? lenis.scrollTo(top, { duration: .9 }) : scrollTo({ top, behavior: 'smooth' });
-  const goSlide = i => goTo(M.svcTop + M.svcTotal * (clamp(i, 0, slides.length - 1) / (slides.length - 1)));
+  const goSlide = i => slides.length > 1 && goTo(M.svcTop + M.svcTotal * (clamp(i, 0, slides.length - 1) / (slides.length - 1)));
 
   /* Âncoras internas também com scroll suave */
   $$('a[href^="#"]:not([data-open-catalogo])').forEach(a => a.addEventListener('click', e => {
@@ -221,7 +228,7 @@
     $$('[data-open-catalogo]').forEach(a => a.addEventListener('click', open));
 
     // fotos do catálogo carregam com o navegador ocioso, para o pop-up abrir já pronto
-    const warm = () => $$('img', cat).forEach(i => { i.loading = 'eager'; });
+    const warm = () => $$('.cat-item:not([hidden]) img', cat).forEach(i => { i.loading = 'eager'; });
     ('requestIdleCallback' in window) ? requestIdleCallback(warm, { timeout: 3000 }) : setTimeout(warm, 2000);
     $$('[data-close-catalogo]', cat).forEach(b => b.addEventListener('click', () => close()));
     cat.addEventListener('cancel', e => { e.preventDefault(); close(); }); // tecla Esc
@@ -253,7 +260,7 @@
   }
 
   /* Botões de navegação dos serviços */
-  dots.forEach(d => d.addEventListener('click', () => goSlide(+d.dataset.go)));
+  dots.forEach((d, i) => d.addEventListener('click', () => goSlide(i)));
 
   /* Celular: deslizar o dedo para o lado troca de serviço */
   if (track && !reduce) {

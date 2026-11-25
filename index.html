@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Espaço Joy | Design de Sobrancelhas em Itaquaquecetuba - SP</title>
-<meta name="description" content="Design de sobrancelhas, brow lamination, henna e micropigmentação com Joyce Duarte no Jardim Americano, Itaquaquecetuba (SP). Veja o catálogo e agende pelo WhatsApp.">
+<meta name="description" content="Design de sobrancelhas, henna e limpeza de pele com Joyce Duarte no Jardim Americano, Itaquaquecetuba (SP). Veja o catálogo e agende pelo WhatsApp.">
 <meta name="theme-color" content="#2B4336">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <meta name="author" content="Joyce Duarte">
@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Espaço Joy">
 <meta property="og:url" content="https://espaco-joyce.vercel.app/">
 <meta property="og:title" content="Espaço Joy | Design de Sobrancelhas em Itaquaquecetuba">
-<meta property="og:description" content="Brow lamination, henna, micropigmentação e design de sobrancelhas com Joyce Duarte. Agende pelo WhatsApp.">
+<meta property="og:description" content="Design de sobrancelhas, henna e limpeza de pele com Joyce Duarte. Agende pelo WhatsApp.">
 <meta property="og:image" content="https://espaco-joyce.vercel.app/assets/brand/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -49,6 +49,9 @@
   @font-face{ font-family:"Cormorant Garamond"; font-style:normal; font-weight:400 600; font-display:swap; src:url(assets/fonts/cormorant.woff2) format("woff2"); }
   @font-face{ font-family:"Cormorant Garamond"; font-style:italic; font-weight:400 500; font-display:swap; src:url(assets/fonts/cormorant-italic.woff2) format("woff2"); }
   @font-face{ font-family:"Jost"; font-style:normal; font-weight:300 500; font-display:swap; src:url(assets/fonts/jost.woff2) format("woff2"); }
+
+  /* Itens ocultos por enquanto (ver docs/servicos-ocultos.md) */
+  [hidden]{ display:none !important; }
 
   /* Paleta: assets/paleta de cores.jpg */
   :root{
@@ -175,13 +178,14 @@
 
   /* ---------- Faixa / marquee ---------- */
   .marquee{ background:var(--pistache); color:var(--resting); overflow:hidden; padding:14px 0; }
-  .marquee .row{ display:flex; gap:40px; width:max-content; animation:slide 28s linear infinite; }
+  .marquee .row{ display:flex; gap:40px; width:max-content; animation:slide 72s linear infinite; }
   .marquee span{ font-family:var(--serif); font-size:1.5rem; font-style:italic; white-space:nowrap; display:flex; align-items:center; gap:40px; }
   .marquee span::after{ content:"✦"; font-style:normal; font-size:.8rem; color:var(--early); }
   @keyframes slide{ to{ transform:translateX(-50%); } }
 
   /* ---------- Serviços: scroll vertical -> horizontal ---------- */
-  .svc{ position:relative; height:calc(var(--vh) * 2.8); background:var(--pistache); color:var(--resting); }
+  /* --n = quantos serviços estão visíveis (o main.js conta sozinho) */
+  .svc{ --n:1; position:relative; height:calc(var(--vh) * (1 + (var(--n) - 1) * .9)); background:var(--pistache); color:var(--resting); }
   .svc-sticky{ position:sticky; top:0; height:var(--vh); overflow:hidden; display:flex; flex-direction:column; }
   .svc-head{ padding:28px 0 10px; display:flex; justify-content:space-between; align-items:end; gap:16px; }
   .svc-head .eyebrow{ color:var(--early); }
@@ -189,11 +193,11 @@
   .svc-count{ font-family:var(--serif); font-size:1.3rem; white-space:nowrap; color:var(--early); }
   .svc-count b{ font-weight:500; color:var(--resting); font-size:2rem; }
   .svc-track{
-    flex:1; display:flex; width:300%; min-height:0;
+    flex:1; display:flex; width:calc(100% * var(--n)); min-height:0;
     will-change:transform; backface-visibility:hidden;
   }
   .slide{
-    width:calc(100% / 3); flex:none; display:flex; align-items:center; justify-content:center;
+    width:calc(100% / var(--n)); flex:none; display:flex; align-items:center; justify-content:center;
     padding:6px 16px 10px; gap:48px;
     --d:1;
   }
@@ -244,6 +248,9 @@
     .svc-hint{ display:block; text-align:center; font-size:.68rem; letter-spacing:.22em; text-transform:uppercase; color:var(--early); opacity:.8; margin-top:-4px; }
   }
   @media (min-width:880px){ .svc-hint{ display:none; } }
+  /* um serviço só: sem contador, barra, botões e dica de deslizar */
+  .svc.solo .svc-count, .svc.solo .svc-foot, .svc.solo .svc-hint{ display:none; }
+  .svc.solo .svc-sticky{ padding-bottom:28px; }
   @keyframes nameIn{ from{ opacity:0; transform:translateY(10px); filter:blur(4px); } }
 
   /* ---------- Antes e depois (comparador arrastável) ---------- */
@@ -544,8 +551,14 @@
 
 <div class="marquee" aria-hidden="true">
   <div class="row">
-    <span>Design de sobrancelhas</span><span>Brow lamination</span><span>Micropigmentação</span><span>Henna</span>
-    <span>Design de sobrancelhas</span><span>Brow lamination</span><span>Micropigmentação</span><span>Henna</span>
+    <span>Design de sobrancelhas</span><span hidden>Brow lamination</span><span hidden>Micropigmentação</span><span>Henna</span><span>Limpeza de pele</span>
+    <span>Design de sobrancelhas</span><span hidden>Brow lamination</span><span hidden>Micropigmentação</span><span>Henna</span><span>Limpeza de pele</span>
+    <span>Design de sobrancelhas</span><span hidden>Brow lamination</span><span hidden>Micropigmentação</span><span>Henna</span><span>Limpeza de pele</span>
+    <span>Design de sobrancelhas</span><span hidden>Brow lamination</span><span hidden>Micropigmentação</span><span>Henna</span><span>Limpeza de pele</span>
+    <span>Design de sobrancelhas</span><span hidden>Brow lamination</span><span hidden>Micropigmentação</span><span>Henna</span><span>Limpeza de pele</span>
+    <span>Design de sobrancelhas</span><span hidden>Brow lamination</span><span hidden>Micropigmentação</span><span>Henna</span><span>Limpeza de pele</span>
+    <span>Design de sobrancelhas</span><span hidden>Brow lamination</span><span hidden>Micropigmentação</span><span>Henna</span><span>Limpeza de pele</span>
+    <span>Design de sobrancelhas</span><span hidden>Brow lamination</span><span hidden>Micropigmentação</span><span>Henna</span><span>Limpeza de pele</span>
   </div>
 </div>
 
@@ -557,11 +570,11 @@
         <span class="eyebrow">Serviços</span>
         <h2>Para cada olhar, <em>uma técnica</em></h2>
       </div>
-      <div class="svc-count" aria-live="polite"><b class="cur">01</b> / 03</div>
+      <div class="svc-count" aria-live="polite"><b class="cur">01</b> / <span class="tot">01</span></div>
     </div>
 
     <div class="svc-track">
-      <article class="slide" style="--dir:-1">
+      <article class="slide" data-nome="Brow Lamination" style="--dir:-1" hidden>
         <div class="frame"><figure><img src="assets/web/brow.webp" width="900" height="1125" alt="Brow Lamination: sobrancelhas alinhadas e volumosas" loading="lazy" decoding="async"></figure></div>
         <div class="info">
           <span class="num">01</span>
@@ -570,7 +583,7 @@
           <a class="btn btn--dark" href="https://wa.me/5511911078055?text=Ol%C3%A1%20Joyce!%20Quero%20agendar%20Brow%20Lamination." target="_blank" rel="noopener noreferrer"><span class="lbl">Agendar</span><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         </div>
       </article>
-      <article class="slide" style="--dir:1">
+      <article class="slide" data-nome="Micropigmentação" style="--dir:1" hidden>
         <div class="frame"><figure><img src="assets/web/micro.webp" width="900" height="1125" alt="Micropigmentação de sobrancelhas fio a fio" loading="lazy" decoding="async"></figure></div>
         <div class="info">
           <span class="num">02</span>
@@ -579,7 +592,7 @@
           <a class="btn btn--dark" href="https://wa.me/5511911078055?text=Ol%C3%A1%20Joyce!%20Quero%20saber%20sobre%20Micropigmenta%C3%A7%C3%A3o." target="_blank" rel="noopener noreferrer"><span class="lbl">Agendar</span><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         </div>
       </article>
-      <article class="slide" style="--dir:-1">
+      <article class="slide" data-nome="Henna" style="--dir:-1">
         <div class="frame"><figure><img src="assets/web/henna.webp" width="736" height="981" alt="Aplicação de henna nas sobrancelhas" loading="lazy" decoding="async"></figure></div>
         <div class="info">
           <span class="num">03</span>
@@ -590,15 +603,15 @@
       </article>
     </div>
 
-    <p class="mobile-name" aria-live="polite">Brow Lamination</p>
+    <p class="mobile-name" aria-live="polite">Henna</p>
     <p class="svc-hint" aria-hidden="true">deslize ou role ↓</p>
 
     <div class="wrap svc-foot">
       <div class="svc-bar"><i></i></div>
       <div class="dots">
-        <button type="button" data-go="0" class="on">Brow</button>
-        <button type="button" data-go="1">Micro</button>
-        <button type="button" data-go="2">Henna</button>
+        <button type="button" hidden>Brow</button>
+        <button type="button" hidden>Micro</button>
+        <button type="button">Henna</button>
       </div>
     </div>
   </div>
@@ -638,7 +651,7 @@
       <h2 class="split" data-reveal>Seu olhar, <em>no detalhe</em></h2>
       <p class="lead" data-reveal style="--i:2">Profissional formada e especializada</p>
       <p data-reveal style="--i:2">Cada sobrancelha é pensada a partir das proporções do seu rosto. Medição, escolha da técnica e acabamento feitos com calma, para um resultado que é a sua cara.</p>
-      <p data-reveal style="--i:3">Antes de começar, eu converso com você sobre o que você espera e o que mais combina com o seu rosto. Do design à micropigmentação, o objetivo é sempre o mesmo: realçar o seu olhar com naturalidade, sem exageros, para você sair daqui confiante com o que vê no espelho.</p>
+      <p data-reveal style="--i:3">Antes de começar, eu converso com você sobre o que você espera e o que mais combina com o seu rosto. Do design à henna, o objetivo é sempre o mesmo: realçar o seu olhar com naturalidade, sem exageros, para você sair daqui confiante com o que vê no espelho.</p>
       <ul class="pills" data-reveal style="--i:4">
         <li>Visagismo</li><li>Atendimento individual</li><li>Resultado natural</li>
       </ul>
@@ -682,13 +695,13 @@
       </details>
       <details>
         <summary>Quais serviços vocês fazem?</summary>
-        <p class="ans">Design de sobrancelhas (20 a 30 min), design com henna (30 a 45 min, dura até 7 dias na pele e até 3 semanas nos fios), brow lamination (45 a 60 min, efeito de 4 a 8 semanas), micropigmentação de sobrancelhas (2 a 3 horas, efeito de 12 a 18 meses) e limpeza de pele simples (cerca de 30 min).</p>
+        <p class="ans">Design de sobrancelhas (20 a 30 min), design com henna (30 a 45 min, dura até 7 dias na pele e até 3 semanas nos fios)<span hidden>, brow lamination (45 a 60 min, efeito de 4 a 8 semanas), micropigmentação de sobrancelhas (2 a 3 horas, efeito de 12 a 18 meses)</span> e limpeza de pele simples (cerca de 30 min).</p>
       </details>
       <details>
         <summary>Quanto custa?</summary>
-        <p class="ans">Design de sobrancelhas: R$ 40. Design com henna: de R$ 45 a R$ 65. Brow lamination: R$ 130. Micropigmentação de sobrancelhas: R$ 450. Limpeza de pele simples: R$ 30. Veja tudo no <a href="#catalogo" data-open-catalogo style="text-decoration:underline;text-underline-offset:3px">catálogo</a>. Os valores podem variar depois da avaliação, porque cada sobrancelha é desenhada para o formato do seu rosto.</p>
+        <p class="ans">Design de sobrancelhas: R$ 40. Design com henna: de R$ 45 a R$ 65. <span hidden>Brow lamination: R$ 130. Micropigmentação de sobrancelhas: R$ 450. </span>Limpeza de pele simples: R$ 30. Veja tudo no <a href="#catalogo" data-open-catalogo style="text-decoration:underline;text-underline-offset:3px">catálogo</a>. Os valores podem variar depois da avaliação, porque cada sobrancelha é desenhada para o formato do seu rosto.</p>
       </details>
-      <details>
+      <details hidden>
         <summary>Qual a diferença entre brow lamination, henna e micropigmentação?</summary>
         <p class="ans">A brow lamination alinha e direciona os fios, dando efeito de sobrancelha mais cheia e volumosa. A henna dá cor e preenche falhas de forma temporária. A micropigmentação deposita pigmento na pele para um resultado duradouro, com definição e simetria.</p>
       </details>
@@ -724,6 +737,7 @@
 </section>
 
 <!-- ============ CATÁLOGO (pop-up) ============
+     Serviços com "hidden" estão ocultos por enquanto: ver docs/servicos-ocultos.md.
      Para editar: troque nome, descrição, tempo e valor de cada <li>.
      O botão "Agendar" já manda o nome do serviço na mensagem do WhatsApp. -->
 <dialog class="cat" id="catalogo" aria-labelledby="cat-title">
@@ -760,7 +774,7 @@
             <div class="row"><span class="dur">⏱ 30 a 45 min</span><a class="cat-go" data-servico="Design com Henna" href="https://wa.me/5511911078055" target="_blank" rel="noopener noreferrer">Agendar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
           </div>
         </li>
-        <li class="cat-item" style="--k:2">
+        <li class="cat-item" style="--k:2" hidden>
           <img src="assets/web/brow.webp" alt="" loading="lazy" decoding="async">
           <div>
             <div class="top"><h3>Brow lamination</h3><span class="price"><small>R$</small>130</span></div>
@@ -769,7 +783,7 @@
             <div class="row"><span class="dur">⏱ 45 a 60 min</span><a class="cat-go" data-servico="Brow Lamination" href="https://wa.me/5511911078055" target="_blank" rel="noopener noreferrer">Agendar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
           </div>
         </li>
-        <li class="cat-item" style="--k:3">
+        <li class="cat-item" style="--k:3" hidden>
           <img src="assets/web/micro.webp" alt="" loading="lazy" decoding="async">
           <div>
             <div class="top"><h3>Micropigmentação</h3><span class="price"><small>R$</small>450</span></div>
@@ -778,7 +792,7 @@
             <div class="row"><span class="dur">⏱ 2 a 3 horas</span><a class="cat-go" data-servico="Micropigmentação" href="https://wa.me/5511911078055" target="_blank" rel="noopener noreferrer">Agendar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
           </div>
         </li>
-        <li class="cat-item" style="--k:4">
+        <li class="cat-item" style="--k:2">
           <img src="assets/web/limpeza.webp" alt="" loading="lazy" decoding="async">
           <div>
             <div class="top"><h3>Limpeza de pele simples</h3><span class="price"><small>R$</small>30</span></div>
@@ -799,7 +813,7 @@
 
 <!-- Scripts servidos do próprio site (sem CDN de terceiros) -->
 <script src="assets/js/lenis.min.js?v=1.1.13" defer></script>
-<script src="assets/js/main.js?v=20261123b" defer></script>
+<script src="assets/js/main.js?v=20261124a" defer></script>
 <!-- Dados estruturados (Google, Bing e IAs). Não é executado como script. -->
 <script type="application/ld+json">
 {
@@ -853,8 +867,6 @@
     "design de sobrancelhas",
     "visagismo",
     "henna para sobrancelhas",
-    "brow lamination",
-    "micropigmentação de sobrancelhas",
     "limpeza de pele"
    ],
    "currenciesAccepted": "BRL",
@@ -896,32 +908,6 @@
       "@type": "Offer",
       "itemOffered": {
        "@type": "Service",
-       "name": "Brow Lamination",
-       "description": "Fios alinhados e com efeito volumoso, prontos todos os dias.",
-       "provider": {
-        "@id": "https://espaco-joyce.vercel.app/#negocio"
-       }
-      },
-      "price": "130.00",
-      "priceCurrency": "BRL"
-     },
-     {
-      "@type": "Offer",
-      "itemOffered": {
-       "@type": "Service",
-       "name": "Micropigmentação de Sobrancelhas",
-       "description": "Definição, simetria e naturalidade com resultado duradouro.",
-       "provider": {
-        "@id": "https://espaco-joyce.vercel.app/#negocio"
-       }
-      },
-      "price": "450.00",
-      "priceCurrency": "BRL"
-     },
-     {
-      "@type": "Offer",
-      "itemOffered": {
-       "@type": "Service",
        "name": "Limpeza de Pele Simples",
        "description": "Limpeza para remover impurezas e deixar a pele renovada e com viço.",
        "provider": {
@@ -945,7 +931,7 @@
      ]
     }
    },
-   "priceRange": "R$ 30 - R$ 450"
+   "priceRange": "R$ 30 - R$ 65"
   },
   {
    "@type": "Person",
@@ -1009,7 +995,7 @@
      "name": "Quais serviços vocês fazem?",
      "acceptedAnswer": {
       "@type": "Answer",
-      "text": "Design de sobrancelhas (20 a 30 min), design com henna (30 a 45 min, dura até 7 dias na pele e até 3 semanas nos fios), brow lamination (45 a 60 min, efeito de 4 a 8 semanas), micropigmentação de sobrancelhas (2 a 3 horas, efeito de 12 a 18 meses) e limpeza de pele simples (cerca de 30 min)."
+      "text": "Design de sobrancelhas (20 a 30 min), design com henna (30 a 45 min, dura até 7 dias na pele e até 3 semanas nos fios) e limpeza de pele simples (cerca de 30 min)."
      }
     },
     {
@@ -1017,15 +1003,7 @@
      "name": "Quanto custa?",
      "acceptedAnswer": {
       "@type": "Answer",
-      "text": "Design de sobrancelhas: R$ 40. Design com henna: de R$ 45 a R$ 65. Brow lamination: R$ 130. Micropigmentação de sobrancelhas: R$ 450. Limpeza de pele simples: R$ 30. Veja tudo no catálogo. Os valores podem variar depois da avaliação, porque cada sobrancelha é desenhada para o formato do seu rosto."
-     }
-    },
-    {
-     "@type": "Question",
-     "name": "Qual a diferença entre brow lamination, henna e micropigmentação?",
-     "acceptedAnswer": {
-      "@type": "Answer",
-      "text": "A brow lamination alinha e direciona os fios, dando efeito de sobrancelha mais cheia e volumosa. A henna dá cor e preenche falhas de forma temporária. A micropigmentação deposita pigmento na pele para um resultado duradouro, com definição e simetria."
+      "text": "Design de sobrancelhas: R$ 40. Design com henna: de R$ 45 a R$ 65. Limpeza de pele simples: R$ 30. Veja tudo no catálogo. Os valores podem variar depois da avaliação, porque cada sobrancelha é desenhada para o formato do seu rosto."
      }
     }
    ]

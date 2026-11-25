@@ -21,7 +21,9 @@ neg = json.loads((RAIZ / 'negocio.json').read_text(encoding='utf-8'))
 html = (RAIZ / 'index.html').read_text(encoding='utf-8')
 
 limpa = lambda s: re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', '', s)).strip()
-faq = re.findall(r'<summary>(.*?)</summary>\s*<p class="ans">(.*?)</p>', html, re.S)
+# o que está com "hidden" no HTML (serviço oculto) não entra nos dados estruturados
+visivel = re.sub(r'<(span|details) hidden>.*?</\1>', '', html, flags=re.S)
+faq = re.findall(r'<summary>(.*?)</summary>\s*<p class="ans">(.*?)</p>', visivel, re.S)
 end = neg['endereco']
 ig = neg['contato']['instagram']
 
@@ -53,7 +55,7 @@ negocio = {
     'areaServed': {'@type': 'City', 'name': end['cidade']},
     'sameAs': [ig] + ([neg['contato']['google']] if neg['contato'].get('google') else []),
     'founder': {'@id': URL + '/#joyce'}, 'employee': {'@id': URL + '/#joyce'},
-    'knowsAbout': ['design de sobrancelhas', 'visagismo', 'henna para sobrancelhas', 'brow lamination', 'micropigmentação de sobrancelhas', 'limpeza de pele'],
+    'knowsAbout': ['design de sobrancelhas', 'visagismo', 'henna para sobrancelhas', 'limpeza de pele'],
     'currenciesAccepted': 'BRL',
     'hasOfferCatalog': {'@type': 'OfferCatalog', 'name': 'Catálogo de serviços', 'itemListElement': [oferta(s) for s in neg['servicos']]},
     'potentialAction': {'@type': 'ReserveAction', 'name': 'Agendar pelo WhatsApp',

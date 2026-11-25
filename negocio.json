@@ -1,6 +1,6 @@
 {
   "_sobre": "Fonte única dos dados do Espaço Joy. Site, Google Meu Negócio, ChatGPT e agentes/automações devem ler daqui. Campos null ainda precisam ser preenchidos. Depois de editar, rode: python scripts/atualizar-dados.py",
-  "_atualizado_em": "2026-11-23",
+  "_atualizado_em": "2026-11-24",
   "nome": "Espaço Joy",
   "nomes_alternativos": [
     "Espaço Joyce",
@@ -12,7 +12,7 @@
     "formacao": "Profissional formada e especializada"
   },
   "categoria": "Design de sobrancelhas",
-  "descricao_curta": "Design de sobrancelhas, henna, brow lamination, micropigmentação e limpeza de pele em Itaquaquecetuba (SP).",
+  "descricao_curta": "Design de sobrancelhas, henna e limpeza de pele em Itaquaquecetuba (SP).",
   "descricao": "Estúdio de design de sobrancelhas da designer Joyce Duarte, profissional formada e especializada, em Itaquaquecetuba (SP). Cada sobrancelha é desenhada a partir das proporções do rosto, com atendimento individual em sala reservada. Agendamento pelo WhatsApp.",
   "contato": {
     "whatsapp": "+5511911078055",
@@ -64,24 +64,6 @@
       "preco_min_brl": 45.0,
       "preco_max_brl": 65.0,
       "duracao_efeito": "Até 7 dias na pele e até 3 semanas nos fios."
-    },
-    {
-      "id": "brow-lamination",
-      "nome": "Brow Lamination",
-      "descricao": "Fios alinhados e com efeito volumoso, prontos todos os dias.",
-      "preco_brl": 130.0,
-      "duracao_min": 45,
-      "duracao_max": 60,
-      "duracao_efeito": "4 a 8 semanas."
-    },
-    {
-      "id": "micropigmentacao",
-      "nome": "Micropigmentação de Sobrancelhas",
-      "descricao": "Definição, simetria e naturalidade com resultado duradouro.",
-      "preco_brl": 450.0,
-      "duracao_min": 120,
-      "duracao_max": 180,
-      "duracao_efeito": "12 a 18 meses, dependendo da técnica, pele e cuidados."
     },
     {
       "id": "limpeza-de-pele",
