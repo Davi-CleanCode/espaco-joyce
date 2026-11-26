@@ -261,7 +261,7 @@
   .ba p{ color:var(--evergreen); max-width:40ch; }
   .ba-slider{
     --pos:50%;
-    position:relative; width:min(100%, 480px); margin-inline:auto; aspect-ratio:4/5;
+    position:relative; width:min(100%, 520px); margin-inline:auto; aspect-ratio:1/1;
     border-radius:24px; overflow:hidden; background:var(--calm);
     box-shadow:0 40px 80px -40px rgba(0,0,0,.6), inset 0 0 0 1px rgba(217,228,215,.14);
     cursor:ew-resize; touch-action:pan-y; user-select:none; -webkit-user-select:none; -webkit-tap-highlight-color:transparent;
@@ -290,6 +290,15 @@
   .ba .ba-hint{ max-width:none; display:flex; align-items:center; justify-content:center; gap:10px; margin-top:16px; font-size:.78rem; letter-spacing:.18em; text-transform:uppercase; color:var(--matcha); }
   @media (max-width:879px){ .ba-text{ text-align:center; } .ba p{ margin-inline:auto; } }
   @media (min-width:880px){ .ba .wrap{ grid-template-columns:1.1fr .9fr; gap:80px; } }
+  .ba .wrap.ba-more{ display:block; padding-top:70px; }
+  .ba-more h3{ font-size:clamp(1.8rem, 6vw, 2.6rem); color:#fff; text-align:center; margin-bottom:26px; }
+  .ba-more h3 em{ color:var(--evergreen); }
+  .ba-grid{ display:grid; gap:22px; }
+  .ba-pair{ display:grid; grid-template-columns:1fr 1fr; gap:6px; border-radius:22px; overflow:hidden; box-shadow:0 30px 60px -36px rgba(0,0,0,.6); }
+  .ba-pair figure{ position:relative; aspect-ratio:4/5; background:var(--calm); }
+  .ba-pair img{ width:100%; height:100%; object-fit:cover; }
+  .ba-pair figcaption{ position:absolute; left:10px; bottom:10px; padding:5px 12px; border-radius:999px; font-size:.62rem; letter-spacing:.22em; text-transform:uppercase; color:#fff; background:rgba(30,48,39,.6); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); }
+  @media (min-width:880px){ .ba-grid{ grid-template-columns:1fr 1fr; gap:28px; } }
 
   /* ---------- Sobre ---------- */
   .about{ padding:110px 0 90px; }
@@ -314,13 +323,18 @@
     display:flex; align-items:flex-end;
     transform:scale(.86); will-change:transform; isolation:isolate;
   }
-  .studio-card img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transform:scale(1.25); will-change:transform; }
+  .studio-card img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 38%; transform:scale(1.25); will-change:transform; }
   .studio-card::before{ content:""; position:absolute; inset:0; z-index:1; background:linear-gradient(to top, rgba(30,48,39,.92) 10%, rgba(30,48,39,.15) 65%); }
   .studio-body{ position:relative; z-index:2; padding:32px 24px; max-width:560px; }
   .studio h2{ font-size:clamp(2.2rem, 8vw, 3.6rem); color:#fff; margin:10px 0 12px; }
   .studio p{ color:var(--evergreen); }
   .studio .btn{ margin-top:22px; width:fit-content; gap:28px; }
-  @media (min-width:880px){ .studio-body{ padding:56px; } }
+  @media (min-width:880px){
+    .studio-body{ padding:56px; }
+    .studio-card{ background:var(--ink); }
+    .studio-card img{ left:auto; width:44%; object-position:50% 45%; }
+    .studio-card::before{ background:linear-gradient(90deg, var(--ink) 54%, rgba(30,48,39,.5) 60%, rgba(30,48,39,0) 72%); }
+  }
 
   /* ---------- Dúvidas frequentes ---------- */
   .faq{ padding:20px 0 110px; }
@@ -627,8 +641,8 @@
     </div>
     <div data-reveal style="--i:1">
       <div class="ba-slider" role="slider" tabindex="0" aria-label="Comparar antes e depois" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-valuetext="50% antes">
-        <img src="assets/web/depois.webp" width="960" height="1200" alt="Depois: sobrancelhas desenhadas, alinhadas e preenchidas" loading="lazy" decoding="async" draggable="false">
-        <div class="ba-before"><img src="assets/web/antes.webp" width="960" height="1200" alt="Antes: sobrancelhas sem design" loading="lazy" decoding="async" draggable="false"></div>
+        <img src="assets/web/depois.webp" width="1100" height="1100" alt="Depois: sobrancelha desenhada, preenchida e com formato definido" loading="lazy" decoding="async" draggable="false">
+        <div class="ba-before"><img src="assets/web/antes.webp" width="1100" height="1100" alt="Antes: sobrancelha natural, com fios falhados e sem formato" loading="lazy" decoding="async" draggable="false"></div>
         <span class="ba-tag ba-tag--l">Antes</span>
         <span class="ba-tag ba-tag--r">Depois</span>
         <div class="ba-handle" aria-hidden="true">
@@ -636,6 +650,19 @@
         </div>
       </div>
       <p class="ba-hint" aria-hidden="true">← arraste para comparar →</p>
+    </div>
+  </div>
+  <div class="wrap ba-more">
+    <h3 class="split" data-reveal>Mais <em>resultados</em></h3>
+    <div class="ba-grid">
+      <div class="ba-pair" data-reveal>
+        <figure><img src="assets/web/c1-antes.webp" width="800" height="1000" alt="Antes: sobrancelha sem design, fios irregulares" loading="lazy" decoding="async"><figcaption>Antes</figcaption></figure>
+        <figure><img src="assets/web/c1-depois.webp" width="800" height="1000" alt="Depois: sobrancelha desenhada, alinhada e preenchida" loading="lazy" decoding="async"><figcaption>Depois</figcaption></figure>
+      </div>
+      <div class="ba-pair" data-reveal style="--i:1">
+        <figure><img src="assets/web/c2-antes.webp" width="800" height="1000" alt="Antes: sobrancelha falhada e sem formato" loading="lazy" decoding="async"><figcaption>Antes</figcaption></figure>
+        <figure><img src="assets/web/c2-depois.webp" width="800" height="1000" alt="Depois: sobrancelha marcada, simétrica e preenchida" loading="lazy" decoding="async"><figcaption>Depois</figcaption></figure>
+      </div>
     </div>
   </div>
 </section>
@@ -663,7 +690,7 @@
 <section class="studio" id="studio">
   <div class="wrap">
     <div class="studio-card">
-      <img src="assets/web/studio.webp" width="736" height="981" alt="Sala de atendimento do Espaço Joy com maca, ring light e espelho iluminado" loading="lazy" decoding="async">
+      <img src="assets/web/studio-joyce.webp" width="1200" height="2132" alt="Joyce atendendo uma cliente na maca, sob a ring light do Espaço Joy" loading="lazy" decoding="async">
       <div class="studio-body">
         <span class="eyebrow" data-reveal>O espaço</span>
         <h2 class="split" data-reveal>Um cantinho <em>pensado pra você</em></h2>
@@ -831,7 +858,7 @@
    "url": "https://espaco-joyce.vercel.app/",
    "image": [
     "https://espaco-joyce.vercel.app/assets/brand/og.jpg",
-    "https://espaco-joyce.vercel.app/assets/web/studio.webp",
+    "https://espaco-joyce.vercel.app/assets/web/studio-joyce.webp",
     "https://espaco-joyce.vercel.app/assets/web/joyce-1.webp"
    ],
    "logo": "https://espaco-joyce.vercel.app/assets/brand/icon-512.png",

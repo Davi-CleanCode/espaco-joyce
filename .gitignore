@@ -4,3 +4,6 @@ assets/*.jpg
 assets/antes e depois 1/
 !assets/web/
 .vercel
+
+# Material bruto e Reels editados (pesados, ficam só no computador)
+joyce/
